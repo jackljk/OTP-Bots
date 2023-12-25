@@ -146,3 +146,21 @@ class YahooBot:
 
         self.driver.quit()
 
+
+    def sendOTP(self):
+        '''
+            Clicks the required buttons to send the OTP
+        '''
+        OTP_button = self.driver.find_element(By.XPATH, self.config['XPATHS']['Send_OTP'])
+        OTP_button.click()
+        
+        
+    def enterOTP(self, OTP):
+        '''
+            Enters the OTP into the input field and clicks the Next button
+        '''
+        OTP_input = self.driver.find_element(By.XPATH, self.config['XPATHS']['OTP_input'])
+        OTP_input.send_keys(OTP)
+
+        next_button = self.driver.find_element(By.XPATH, self.config['XPATHS']['OTP_next'])
+        next_button.click()

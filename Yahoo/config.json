@@ -25,6 +25,7 @@
             "Password_input": "//*[@id='login-passwd']",
             "Password_next": "//*[@id='login-signin']",
             "Send_OTP": "//*[@id='challenge-selector-challenge']/form/ul/li/button",
+            "Verify": "/html/body/div[1]/div[2]/div[1]/div[2]/div[2]/form/div[1]/button",
             "OTP_input": "//*[@id='verification-code-field']",
             "OTP_next": "//*[@id='verify-code-button']"
         }

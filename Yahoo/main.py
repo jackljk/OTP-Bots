@@ -1,9 +1,13 @@
-import gmail_bot
+from yahoo_bot import YahooBot
 import json
 from selenium import webdriver
 import time
+import os
 
-CONFIG = json.load(open('config.json', 'r'))
+# get current working directory
+current_directory = os.path.dirname(__file__)
+config_file_path = os.path.join(current_directory, 'config.json')
+CONFIG = json.load(open(config_file_path, 'r'))
 
 
 def main():
@@ -32,34 +36,34 @@ def main():
             print('Invalid driver type')
     
     # Initializing the gmail_bot class
-    gmailBot = gmail_bot.GMAIL(driver, CONFIG)
+    bot = YahooBot(driver, CONFIG)
     
-    gmailBot.enterEmail(email)
+    # Going to the login page
+    bot.goto_signin()
+    
+    # Wait for page to load
+    time.sleep(5)
+    
+    # Entering the email address
+    bot.enterEmail(email)
 
     # Wait for page to load
     time.sleep(5)
-
-    
-    # Checking the type of captcha and solving it  
-    captcha_type =  gmailBot.captchaCheck()
-    # captcha_type = 'Image_Captcha'
-    print(captcha_type)
-    while captcha_type != 'No_Captcha':
-        if captcha_type == 'Recaptcha':
-            gmailBot.recaptchaSolver()
-        elif captcha_type == 'Image_Captcha':
-            gmailBot.imageCaptchaSolver()
-        
-        
-        # Wait for page to load
-        print('sleeping')
-        time.sleep(5)    
-        captcha_type =  gmailBot.captchaCheck()
-        break
-        
         
     # Entering the password
-    gmailBot.enterPassword(password)
+    bot.enterPassword(password)
+    
+    # Wait for page to load
+    time.sleep(5)
+    
+    # Send OTP
+    bot.sendOTP()
+    
+    # Wait for page to load
+    time.sleep(5)
+    
+    # Enter OTP
+    bot.enterOTP()
     
     
     
